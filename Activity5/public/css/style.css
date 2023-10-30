@@ -1,0 +1,32 @@
+
+.centered-container {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-div {
+    width: 100%;
+    border: 2px solid;
+    text-align: center;
+}
+
+.container {
+    margin: auto;
+    border: 2px solid;
+}
+
+.center-text-div {
+    margin: auto;
+    border: 2px solid;
+    text-align: center;
+} 
+
+
+.bordered {
+    border: 1px solid;
+    padding: 5px;
+}
