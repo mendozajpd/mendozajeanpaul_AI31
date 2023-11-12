@@ -8,8 +8,17 @@
     <title>IntegProg Act No. 1: Registration Form</title>
 </head>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>IntegProg Act No. 1: Registration Form</title>
+</head>
+
 <body>
     <?php
+    include('db_connection.php');
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -21,6 +30,7 @@
         {
             echo "<script type='text/javascript'>alert('$msg');</script>";
         }
+
         if (trim($password) == trim($password2)) {
             $num += 1;
         }
@@ -34,27 +44,21 @@
 
         if (!empty($email)) {
             $num += 1;
+
+            // Insert user data into the database
+            $insertSql = "INSERT INTO users (username, password, email) VALUES ('$username', '$password', '$email')";
+
+            if ($conn->query($insertSql) === FALSE) {
+                echo "Error inserting data: " . $conn->error;
+            } else {
+                _alert("Registration successful!");
+            }
+        } else {
+            _alert("Please fill in all the fields.");
         }
     }
     ?>
-    <script>
-        function registerForm() {
-            let Username = document.getElementById("username").value;
-            let Password = document.getElementById("password").value;
-            let Password2 = document.getElementById("password2").value;
-            let Email = document.getElementById("email").value;
-
-            if (Password == Password2) {
-                localStorage.setItem("username", Username);
-                localStorage.setItem("password", Password);
-                localStorage.setItem("email", Email);
-                alert("Successfully Stored to Local Storage");
-            } else {
-                alert("Password does not match!");
-            }
-        }
-    </script>
-
+    
     <div class="register">
         <h1>REGISTRATION FORM</h1>
         <form onsubmit="registerForm()" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
